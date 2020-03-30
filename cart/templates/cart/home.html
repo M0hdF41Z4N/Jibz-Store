@@ -1,0 +1,47 @@
+{% extends 'demo/base.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="my-5">
+        <h2>You Cart</h2>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart in carts %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ cart.item.name }}</td>
+                <td>
+                  <a href="{% url 'demo:remove' cart.item.slug %}">
+                    <span class="badge badge-danger"><i class="fas fa-minus"></i></span></a>
+                  {{ cart.quantity }}
+                  <a href="{% url 'demo:cart' cart.item.slug %}">
+                    <span class="badge badge-success"><i class="fas fa-plus"></i></span></a>
+                </td>
+                <td>Rs. {{ cart.get_total }} </td>
+                <td><a href="{% url 'demo:decrease-cart' cart.item.slug %}" class="btn btn-sm btn-danger">Remove from Cart</a></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th scope="row"></th>
+                <td colspan="2">Total</td>
+                <td>Rs. {{ order.get_totals| floatformat }}</td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td colspan="4" class="text-right ">
+									<a href="{% url 'demo:demo' %}" class="btn btn-warning m-4"> Continue Shopping </a>
+                  <a href="{% url 'demo:checkout' %}" class="btn btn-success m-4"> Proceed to Checkout </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

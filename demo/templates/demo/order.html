@@ -1,0 +1,34 @@
+{% extends "demo/base.html"%}
+{% block content %}
+<div class="container my-5">
+    <div class="my-5">
+        <h2>You Orders</h2>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pay in payment %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+
+                    <td>{{ pay.user }}</td>
+                <td>{{ pay.order_id }}</td>
+                <td>Rs. {{ pay.amount }} </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th scope="row"></th>
+                <td colspan="4" class="text-right ">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,286 @@
+{% load static %}
+{% load cart_tag %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=devicehome-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+    .card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+  }
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
+  <title>{% block head_title %} Jibz Store {% endblock %}</title>
+  {% block extra_head %}
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+      <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="{% url 'demo:demo' %}" >
+          <strong class="blue-text">Jibz Store</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link waves-effect" href="{% url 'demo:demo' %}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'demo:checkout' %}" >Checkout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'demo:order' %}" >Orders</a>
+            </li>
+            {% endif %}
+          </ul>
+
+          <!-- Right -->
+          {% if request.user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'demo:cart-home' %}">
+              <i class="fas fa-shopping-cart"></i>Cart
+              <span class="badge badge-warning">{{ request.user| cart_total }}</span>
+            </a>
+          </li>
+            <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Account
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">{{ request.user }}</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+            </div>
+          </div>
+          {% else %}
+            <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'demo:cart-home' %}">
+              <i class="fas fa-shopping-cart"></i>Cart
+              <span class="badge badge-warning"><b>0</b></span>
+            </a>
+          </li>
+            <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Account
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'account_signup' %}">Register</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    <div class="p-1 my-5"></div>
+        <!-- Navbar -->
+        {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+      {% endfor %}
+      {% endif %}
+
+
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
+
+</main>
+
+<!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-lg-2 col-md-6 mb-4">
+
+        <!--Image-->
+        <div class="embed-responsive embed-responsive-4by3">
+           <img alt="Card image cap" class="card-img-top embed-responsive-item rounded" src="/media/specialOffer.png" />
+        </div>
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-sm pt-1">
+
+        <!--Image-->
+          <p class="text-sm-left"><strong class="text-success">Best Offers </strong>
+            <br>Cheaper prices than your local supermarket, great cashback offers to top it off.</p>
+          <a href="{% url "demo:demo" %}">
+            <div class="mask rgba-white-light"></div>
+          </a>
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-2 col-md-6 mb-4">
+
+        <!--Image-->
+        <div class="embed-responsive embed-responsive-4by3">
+           <img alt="Card image cap" class="card-img-top embed-responsive-item rounded" src="/media/cart.jpg" />
+        </div>
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-sm pt-1">
+
+        <!--Image-->
+          <p class="text-sm-left"><strong class="text-warning">Wide Assesment</strong>
+            <br>Choose from 5000+ products across food, personal care, household & other categories.</p>
+          <a href="{% url "demo:demo" %}">
+            <div class="mask rgba-white-light"></div>
+          </a>
+
+      </div>
+      <!--Grid column-->
+
+
+
+      <!--Grid column-->
+      <div class="col-lg-2 col-md-6 mb-4">
+
+        <!--Image-->
+        <div class="embed-responsive embed-responsive-4by3">
+           <img alt="Card image cap" class="card-img-top embed-responsive-item rounded" src="/media/return.png" />
+        </div>
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-sm pt-1">
+
+        <!--Image-->
+          <p class="text-sm-left"><strong class="text-primary">Easy Returns.</strong>
+            <br>Not satisfied with a product? Return it at the doorstep & get a refund within hours.</p>
+          <a href="{% url "demo:demo" %}">
+            <div class="mask rgba-white-light"></div>
+          </a>
+
+      </div>
+      <!--Grid column-->
+
+
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+
+
+
+  <hr>
+
+  <!-- Social buttons -->
+  <ul class="list-unstyled list-inline text-center">
+    <li class="list-inline-item">
+      <a class="btn-floating btn-fb mx-1">
+        <i class="fab fa-facebook-f"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-tw mx-1">
+        <i class="fab fa-twitter"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-gplus mx-1">
+        <i class="fab fa-google-plus-g"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-li mx-1">
+        <i class="fab fa-linkedin-in"> </i>
+      </a>
+    </li>
+  </ul>
+  <!-- Social buttons -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="/demo"> Jibz Store </a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

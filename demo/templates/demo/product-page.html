@@ -1,0 +1,112 @@
+{% extends "demo/base.html"%}
+{% block content %}
+<body>
+
+
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <img src="/media/{{ object.thumbnail }}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3">
+              <a href="">
+                <span class="badge purple mr-1">{{ object.category }}</span>
+              </a>
+              <a href="">
+                <span class="badge blue mr-1">New</span>
+              </a>
+              <a href="">
+                <span class="badge red mr-1">Bestseller</span>
+              </a>
+            </div>
+
+            <p class="lead">
+              <span class="mr-1">
+                {% if object.dis_price %}
+                <del>Rs {{ object.dis_price }}</del>
+              </span>
+              {% else %}
+              <span>Rs {{ object.price }}</span>
+              {% endif %}
+            </p>
+
+            <p class="lead font-weight-bold">Description</p>
+
+            <p>{{ object.description }}</p>
+
+            <a href="{{object.get_add_to_cart_url}}" class="btn btn-primary">Add to Cart<i class="fas fa-shopping-cart ml-1"></i></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'demo:decrease-cart' object.slug %}" class="btn btn-danger">Remove from Cart<i class="fas fa-shopping-cart ml-1"></i></a>
+            {% endif %}
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 text-center">
+
+          <h4 class="my-4 h4">Additional information</h4>
+
+          <p>{{ object.previewText }}</p>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+<hr>
+<h5 class="my-4 h5 text-center">Similar Products</h5>
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+
+      {% for product in products %}
+        {% if product.name != object.name %}
+          {% if product.category == object.category %}
+              <!--Grid column-->
+              <div class="col-lg-4 mb-4 border">
+                <div class="embed-responsive embed-responsive-4by3">
+                   <img alt="Card image cap" class="card-img-top embed-responsive-item" src="/media/{{ product.thumbnail }}" />
+                   <a href="{{ product.slug }}">
+                </div>
+                <p class="text-muted text-center">{{ product.name }}</p>
+
+              </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+{% endblock content %}
