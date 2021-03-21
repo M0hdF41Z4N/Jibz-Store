@@ -3,7 +3,6 @@ ailment==8.20.1.7
 aiodns==2.0.0
 aiohttp==3.6.2
 ajpy==0.0.4
-alembic==1.0.11.dev0
 angr==8.20.1.7
 aniso8601==8.0.0
 ansible==2.9.4
