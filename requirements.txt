@@ -222,7 +222,7 @@ pefile==2019.4.18
 pexpect==4.6.0
 pgpdump==1.5
 pickleshare==0.7.5
-Pillow==6.2.1
+Pillow==8.1.1
 plaster==1.0
 plaster-pastedeploy==0.5
 plecost==1.1.2
