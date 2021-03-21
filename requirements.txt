@@ -138,7 +138,7 @@ hashID==3.1.4
 hpack==3.0.0
 html2text==2019.8.11
 html5lib==1.0.1
-httplib2==0.14.0
+httplib2==0.19.0
 humanfriendly==4.18
 hupper==1.9.1
 hyperframe==5.2.0
