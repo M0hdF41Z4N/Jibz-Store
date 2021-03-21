@@ -1,7 +1,7 @@
 AdvancedHTTPServer==2.2.0
 ailment==8.20.1.7
 aiodns==2.0.0
-aiohttp==3.6.2
+aiohttp==3.7.4
 ajpy==0.0.4
 angr==8.20.1.7
 aniso8601==8.0.0
